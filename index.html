@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URE Caieiras - Programação com Python</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #0d47a1;
+            --accent-color: #ff5722;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            max-width: 300px;
+            height: auto;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn:hover {
+            background-color: #e64a19;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .code-container {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+            white-space: pre-wrap;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #444;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .example-card {
+            background-color: var(--light-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .example-card.active {
+            border-color: var(--accent-color);
+            background-color: #e3f2fd;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .example-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-card.active {
+            border-left-color: var(--accent-color);
+            background-color: #e3f2fd;
+        }
+        
+        .project-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .project-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #999;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .example-grid, .projects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="https://i.ibb.co/dscRg9Ms/LOGO-URE-CAIEIRAS-2-1.png" alt="Logo URE Caieiras" class="logo">
+        </div>
+        <h1>Programação com Python</h1>
+        <p class="subtitle">Aprenda lógica de programação com exemplos práticos e projetos simples</p>
+        <div class="cta-buttons">
+            <a href="https://colab.research.google.com/" class="btn" target="_blank">Acesse o Google COLAB</a>
+            <a href="https://drive.google.com/drive/folders/1HNdSeL22HsR9sLegFmyVWXu7zYH5MqZD?usp=sharing" class="btn btn-secondary" target="_blank">Jogue Campo de Bombas</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="introducao">
+            <h2>Introdução à Programação</h2>
+            <p>Bem-vindo ao portal de aprendizado de programação da URE Caieiras! Aqui você encontrará exemplos práticos de código Python para aprender os conceitos fundamentais da programação.</p>
+            <p>A programação é uma habilidade essencial no mundo digital de hoje, e aprender Python é um excelente ponto de partida devido à sua sintaxe clara e versatilidade.</p>
+            
+            <h3>O que é Python?</h3>
+            <p>Python é uma linguagem de programação de alto nível, interpretada e de propósito geral. Sua filosofia de design enfatiza a legibilidade do código com o uso de indentação significativa.</p>
+            
+            <h3>Estrutura Básica: IF/ELSE</h3>
+            <p>A estrutura condicional <code>if/else</code> é um dos conceitos mais fundamentais na programação. Ela permite que o programa tome decisões com base em condições específicas.</p>
+            
+            <div class="code-container">
+# Estrutura básica do if/else em Python
+if condição:
+    # código executado se a condição for verdadeira
+    print("Condição verdadeira")
+else:
+    # código executado se a condição for falsa
+    print("Condição falsa")
+            </div>
+        </section>
+        
+        <section id="exemplos">
+            <h2>20 Exemplos de Código com IF/ELSE</h2>
+            <p>Clique em qualquer exemplo abaixo para visualizar o código completo:</p>
+            
+            <div class="example-grid" id="examples-grid">
+                <!-- Os exemplos serão inseridos aqui via JavaScript -->
+            </div>
+            
+            <div id="example-code-container" class="hidden">
+                <h3 id="example-title">Exemplo de Código</h3>
+                <div class="code-container" id="example-code">
+                    <!-- O código do exemplo será inserido aqui -->
+                </div>
+            </div>
+        </section>
+        
+        <section id="projetos">
+            <h2>10 Projetos Simples: Operações Matemáticas + IF/ELSE</h2>
+            <p>Clique em qualquer projeto abaixo para visualizar o código completo:</p>
+            
+            <div class="projects-container" id="projects-container">
+                <!-- Os projetos serão inseridos aqui via JavaScript -->
+            </div>
+            
+            <div id="project-code-container" class="hidden">
+                <h3 id="project-title">Projeto de Código</h3>
+                <div class="code-container" id="project-code">
+                    <!-- O código do projeto será inserido aqui -->
+                </div>
+            </div>
+        </section>
+        
+        <section id="recursos">
+            <h2>Recursos Adicionais</h2>
+            <p>Para continuar seu aprendizado em programação, explore estes recursos:</p>
+            
+            <div class="cta-buttons">
+                <a href="https://colab.research.google.com/" class="btn" target="_blank">Acesse o Google COLAB</a>
+                <a href="https://forms.gle/RM3fgfmw49xtAVX29" class="btn" target="_blank">Participe da nossa Mão na Massa </a>
+                <a href="https://drive.google.com/drive/folders/1HNdSeL22HsR9sLegFmyVWXu7zYH5MqZD?usp=sharing" class="btn btn-secondary" target="_blank">Jogue Campo Minado URE-CAIEIRAS</a>
+            </div>
+            
+            <h3>Dicas para Iniciantes</h3>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li>Pratique regularmente - a programação é uma habilidade que melhora com a prática</li>
+                <li>Comece com projetos simples e aumente gradualmente a complexidade</li>
+                <li>Não tenha medo de cometer erros - eles são parte do processo de aprendizado</li>
+                <li>Leia códigos de outras pessoas para aprender novas técnicas</li>
+                <li>Participe de comunidades de programação para tirar dúvidas e compartilhar conhecimento</li>
+            </ul>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="logo-container">
+            <img src="https://i.ibb.co/dscRg9Ms/LOGO-URE-CAIEIRAS-2-1.png" alt="Logo URE Caieiras" class="logo" style="max-width: 200px;">
+        </div>
+        
+        <div class="footer-links">
+            <a href="https://forms.gle/RM3fgfmw49xtAVX29" class="footer-link" target="_blank">Formação COLAB</a>
+            <a href="https://drive.google.com/drive/folders/1HNdSeL22HsR9sLegFmyVWXu7zYH5MqZD?usp=sharing" class="footer-link" target="_blank">Jogo Campo Minado</a>
+        </div>
+        
+        <p class="copyright">© 2025 URE Caieiras - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Dados dos exemplos
+        const examples = [
+            {
+                id: 1,
+                title: "Verificação de Idade",
+                description: "Verifica se uma pessoa é maior de idade para comprar bebidas.",
+                code: `# Exemplo 01: Verificação de Idade para Venda de Bebida
+print("\\n--- Exemplo 01: Verificação de Idade ---")
+idade_str = input("Qual é a sua idade? ")
+try:
+    idade = int(idade_str)
+    if idade >= 18:
+        print("Acesso liberado. Pode comprar a bebida.")
+    else:
+        print("Acesso negado. Você é menor de idade.")
+except ValueError:
+    print("Entrada inválida. Digite um número.")`
+            },
+            {
+                id: 2,
+                title: "Status de Energia",
+                description: "Verifica se a bateria do celular está carregada.",
+                code: `# Exemplo 02: Status de Energia
+print("\\n--- Exemplo 02: Status de Energia ---")
+bateria_carregada = input("A bateria do celular está carregada? (sim/nao): ")
+if bateria_carregada.lower() == "sim":
+    print("O celular está pronto para usar o dia todo.")
+else:
+    print("Conecte o carregador imediatamente.")`
+            },
+            {
+                id: 3,
+                title: "Verificação de Senha",
+                description: "Valida se a senha digitada está correta.",
+                code: `# Exemplo 03: Verificação de Senha Simples
+print("\\n--- Exemplo 03: Verificação de Senha ---")
+senha_digitada = input("Digite a senha (Dica: 'python'): ")
+senha_correta = "python"
+if senha_digitada == senha_correta:
+    print("Login bem-sucedido! Bem-vindo(a).")
+else:
+    print("Senha incorreta. Tente novamente.")`
+            },
+            {
+                id: 4,
+                title: "Limite de Velocidade",
+                description: "Verifica se a velocidade ultrapassou o limite permitido.",
+                code: `# Exemplo 04: Limite de Velocidade
+print("\\n--- Exemplo 04: Limite de Velocidade ---")
+velocidade_str = input("Qual a velocidade atual (em km/h)? ")
+try:
+    velocidade = int(velocidade_str)
+    limite = 80
+    if velocidade > limite:
+        print("AVISO: Você ultrapassou o limite de velocidade.")
+    else:
+        print("Velocidade segura. Boa viagem!")
+except ValueError:
+    print("Entrada inválida. Digite um número.")`
+            },
+            {
+                id: 5,
+                title: "Verificação de Clima",
+                description: "Recomenda levar guarda-chuva se estiver chovendo.",
+                code: `# Exemplo 05: Verificação de Clima
+print("\\n--- Exemplo 05: Verificação de Clima ---")
+clima = input("Como está o clima hoje? (sol/chuva): ")
+if clima.lower() == "chuva":
+    print("Não se esqueça do guarda-chuva!")
+else:
+    print("Aproveite o dia ensolarado!")`
+            },
+            {
+                id: 6,
+                title: "Frete Grátis",
+                description: "Verifica se o valor da compra qualifica para frete grátis.",
+                code: `# Exemplo 06: Compra Mínima para Frete Grátis
+print("\\n--- Exemplo 06: Frete Grátis ---")
+valor_compra_str = input("Qual o valor total da sua compra? R$ ")
+try:
+    valor_compra = float(valor_compra_str)
+    minimo_frete_gratis = 100.00
+    if valor_compra >= minimo_frete_gratis:
+        print("Parabéns! Você ganhou frete grátis!")
+    else:
+        print(f"Faltam R$ {minimo_frete_gratis - valor_compra:.2f} para o frete grátis.")
+except ValueError:
+    print("Entrada inválida. Digite um valor monetário.")`
+            },
+            {
+                id: 7,
+                title: "Status do Projeto",
+                description: "Verifica se a tarefa principal do projeto foi concluída.",
+                code: `# Exemplo 07: Status de Estágio de Projeto
+print("\\n--- Exemplo 07: Status do Projeto ---")
+tarefa_concluida = input("A tarefa principal do projeto foi concluída? (s/n): ")
+if tarefa_concluida.lower() == "s":
+    print("O projeto pode avançar para a próxima fase.")
+else:
+    print("Continue trabalhando na tarefa principal.")`
+            },
+            {
+                id: 8,
+                title: "Meia-entrada",
+                description: "Aplica desconto de meia-entrada para estudantes.",
+                code: `# Exemplo 08: Entrada em Cinema (Meia-entrada)
+print("\\n--- Exemplo 08: Meia-entrada ---")
+e_estudante = input("Você é estudante? (sim/nao): ")
+if e_estudante.lower() == "sim":
+    print("Preço do ingresso: R$ 15,00 (Meia-entrada)")
+else:
+    print("Preço do ingresso: R$ 30,00 (Inteira)")`
+            },
+            {
+                id: 9,
+                title: "Verificação de Estoque",
+                description: "Verifica se há produtos disponíveis no estoque.",
+                code: `# Exemplo 09: Verificação de Estoque
+print("\\n--- Exemplo 09: Verificação de Estoque ---")
+quantidade_estoque_str = input("Quantos itens restam no estoque? ")
+try:
+    quantidade_estoque = int(quantidade_estoque_str)
+    if quantidade_estoque > 0:
+        print("Produto disponível para venda.")
+    else:
+        print("Produto esgotado.")
+except ValueError:
+    print("Entrada inválida. Digite um número inteiro.")`
+            },
+            {
+                id: 10,
+                title: "Nota de Corte",
+                description: "Verifica se a nota é suficiente para aprovação.",
+                code: `# Exemplo 10: Avaliação Simples (Nota de corte)
+print("\\n--- Exemplo 10: Nota de Corte ---")
+nota_str = input("Qual a sua nota na prova (0-10)? ")
+try:
+    nota = float(nota_str)
+    nota_corte = 7.0
+    if nota >= nota_corte:
+        print("Aprovado!")
+    else:
+        print("Reprovado.")
+except ValueError:
+    print("Entrada inválida. Digite um número.")`
+            },
+            {
+                id: 11,
+                title: "Assinatura Ativa",
+                description: "Verifica se a assinatura de um serviço está ativa.",
+                code: `# Exemplo 11: Acesso a Recurso Online
+print("\\n--- Exemplo 11: Assinatura Ativa ---")
+assinatura = input("Sua assinatura está ativa? (ativa/expirada): ")
+if assinatura.lower() == "ativa":
+    print("Bem-vindo(a) ao conteúdo premium!")
+else:
+    print("Sua assinatura expirou. Renove para continuar assistindo.")`
+            },
+            {
+                id: 12,
+                title: "Cor do Produto",
+                description: "Seleciona a cor do produto com base na escolha do usuário.",
+                code: `# Exemplo 12: Seleção de Cor do Produto
+print("\\n--- Exemplo 12: Cor do Produto ---")
+cor = input("Qual cor você deseja? (vermelho/azul): ")
+if cor.lower() == "vermelho":
+    print("Cor vermelha selecionada. Adicionando ao carrinho.")
+else:
+    print("Cor azul selecionada. Adicionando ao carrinho.")`
+            },
+            {
+                id: 13,
+                title: "Par ou Ímpar",
+                description: "Determina se um número é par ou ímpar usando o operador módulo.",
+                code: `# Exemplo 13: Número Par ou Ímpar (Usando o operador módulo %)
+print("\\n--- Exemplo 13: Par ou Ímpar ---")
+numero_str = input("Digite um número inteiro: ")
+try:
+    numero = int(numero_str)
+    # Verifica se o resto da divisão por 2 é 0 (par)
+    if numero % 2 == 0:
+        print("O número é PAR.")
+    else:
+        print("O número é ÍMPAR.")
+except ValueError:
+    print("Entrada inválida. Digite um número inteiro.")`
+            },
+            {
+                id: 14,
+                title: "Confirmação de Transação",
+                description: "Confirma ou cancela uma transação com base na resposta do usuário.",
+                code: `# Exemplo 14: Confirmação de Transação
+print("\\n--- Exemplo 14: Confirmação de Transação ---")
+confirmacao = input("Deseja confirmar a compra? (sim/nao): ")
+if confirmacao.lower() == "sim":
+    print("Transação finalizada com sucesso.")
+else:
+    print("Transação cancelada.")`
+            },
+            {
+                id: 15,
+                title: "Temperatura Ambiente",
+                description: "Recomenda ligar o ar condicionado se a temperatura estiver alta.",
+                code: `# Exemplo 15: Temperatura Ideal
+print("\\n--- Exemplo 15: Temperatura Ambiente ---")
+temp_str = input("Qual a temperatura atual (em °C)? ")
+try:
+    temperatura = float(temp_str)
+    ideal = 25.0
+    if temperatura > ideal:
+        print("Ligar o ar condicionado para resfriar.")
+    else:
+        print("Não é necessário ligar o ar condicionado.")
+except ValueError:
+    print("Entrada inválida. Digite um número.")`
+            },
+            {
+                id: 16,
+                title: "Dia Útil / Fim de Semana",
+                description: "Determina se é dia de trabalhar/estudar ou fim de semana.",
+                code: `# Exemplo 16: Dia Útil ou Fim de Semana
+print("\\n--- Exemplo 16: Dia Útil / Fim de Semana ---")
+dia = input("Hoje é dia de semana? (s/n): ")
+if dia.lower() == "s":
+    print("É dia de trabalhar/estudar.")
+else:
+    print("Aproveite o fim de semana!")`
+            },
+            {
+                id: 17,
+                title: "Preenchimento de Nome",
+                description: "Verifica se o campo nome não está vazio.",
+                code: `# Exemplo 17: Verificação de Vazio em String
+print("\\n--- Exemplo 17: Preenchimento de Nome ---")
+nome = input("Digite seu nome completo: ")
+if len(nome.strip()) > 0: # Checa se o nome tem pelo menos um caractere
+    print(f"Olá, {nome.strip()}! Seu registro foi salvo.")
+else:
+    print("Erro: O campo nome não pode estar vazio.")`
+            },
+            {
+                id: 18,
+                title: "Permissão de Publicação",
+                description: "Verifica se um artigo foi aprovado pelo editor para publicação.",
+                code: `# Exemplo 18: Permissão para Publicação
+print("\\n--- Exemplo 18: Permissão de Publicação ---")
+aprovado_pelo_editor = input("O artigo foi aprovado pelo editor? (sim/nao): ")
+if aprovado_pelo_editor.lower() == "sim":
+    print("Artigo enviado para publicação.")
+else:
+    print("Artigo requer revisão final.")`
+            },
+            {
+                id: 19,
+                title: "Mesa Disponível",
+                description: "Verifica se há mesas livres em um restaurante.",
+                code: `# Exemplo 19: Disponibilidade de Mesa em Restaurante
+print("\\n--- Exemplo 19: Mesa Disponível ---")
+mesas_livres_str = input("Quantas mesas livres há no momento? ")
+try:
+    mesas_livres = int(mesas_livres_str)
+    if mesas_livres >= 1:
+        print("Mesa disponível. Acompanhe-me.")
+    else:
+        print("Todas as mesas estão ocupadas. Aguarde.")
+except ValueError:
+    print("Entrada inválida. Digite um número inteiro.")`
+            },
+            {
+                id: 20,
+                title: "Tipo de Usuário",
+                description: "Define privilégios de acesso com base no tipo de usuário.",
+                code: `# Exemplo 20: Tipo de Usuário (Admin ou Comum)
+print("\\n--- Exemplo 20: Tipo de Usuário ---")
+e_admin = input("Você possui privilégios de administrador? (sim/nao): ")
+if e_admin.lower() == "sim":
+    print("Acesso completo ao painel de controle.")
+else:
+    print("Acesso limitado como usuário comum.")`
+            }
+        ];
+
+        // Dados dos projetos
+        const projects = [
+            {
+                id: 1,
+                title: "Verificador de Número Par ou Ímpar",
+                description: "Usa o operador módulo (%) para verificar se um número é par ou ímpar.",
+                code: `# PROJETO 1: VERIFICADOR DE NÚMERO PAR OU ÍMPAR (Operador Módulo %)
+print("\\n--- [1] Par ou Ímpar ---")
+try:
+    numero = int(input("Digite um número inteiro: "))
+    # OPERAÇÃO MATEMÁTICA: Módulo (%) verifica o resto da divisão por 2
+    if numero % 2 == 0:
+        print(f"O número {numero} é PAR.")
+    else:
+        print(f"O número {numero} é ÍMPAR.")
+except ValueError:
+    print("Erro: Entrada inválida. Digite um número inteiro.")`
+            },
+            {
+                id: 2,
+                title: "Verificador Positivo ou Negativo",
+                description: "Verifica se um valor numérico é positivo, negativo ou zero.",
+                code: `# PROJETO 2: VERIFICADOR POSITIVO OU NEGATIVO (Comparação)
+print("\\n--- [2] Positivo ou Negativo ---")
+try:
+    valor = float(input("Digite um valor numérico: "))
+    # ESTRUTURA CONDICIONAL: Verifica se é maior ou igual a zero
+    if valor >= 0:
+        print(f"O valor {valor} é Positivo ou Zero.")
+    else:
+        print(f"O valor {valor} é Negativo.")
+except ValueError:
+    print("Erro: Entrada inválida. Digite um número.")`
+            },
+            {
+                id: 3,
+                title: "Calculadora de Desconto",
+                description: "Calcula desconto de 10% e aplica apenas se o preço for alto.",
+                code: `# PROJETO 3: CALCULADORA DE DESCONTO DE 10% (Operações *, -)
+print("\\n--- [3] Calculadora de Desconto ---")
+try:
+    preco_original = float(input("Digite o preço original do produto: R$ "))
+    
+    # OPERAÇÃO MATEMÁTICA: Calcula o desconto e o preço final
+    desconto = preco_original * 0.10
+    preco_final = preco_original - desconto
+    
+    # ESTRUTURA CONDICIONAL: Aplica o desconto apenas se o preço for alto (ex: > 50)
+    if preco_original > 50.0:
+        print(f"Desconto de 10% aplicado (R$ {desconto:.2f}).")
+        print(f"Preço final: R$ {preco_final:.2f}")
+    else:
+        print("Preço muito baixo. Nenhum desconto adicional aplicado.")
+        print(f"Preço final: R$ {preco_original:.2f}")
+except ValueError:
+    print("Erro: Entrada inválida. Digite um valor monetário.")`
+            },
+            {
+                id: 4,
+                title: "Verificador de Maioridade",
+                description: "Verifica se a pessoa é maior de idade e calcula quanto falta se for menor.",
+                code: `# PROJETO 4: VERIFICADOR DE MAIORIDADE (Comparação Simples)
+print("\\n--- [4] Verificador de Maioridade ---")
+try:
+    idade = int(input("Qual é a sua idade? "))
+    if idade >= 18:
+        print("Você é maior de idade. Acesso permitido.")
+    else:
+        # OPERAÇÃO MATEMÁTICA: Subtração para mostrar quanto falta
+        falta = 18 - idade
+        print(f"Você é menor de idade. Faltam {falta} anos para a maioridade.")
+except ValueError:
+    print("Erro: Entrada inválida. Digite um número inteiro.")`
+            },
+            {
+                id: 5,
+                title: "Calculadora de IMC",
+                description: "Calcula o Índice de Massa Corporal e classifica o resultado.",
+                code: `# PROJETO 5: CÁLCULO SIMPLES DE IMC (Operações /, **)
+print("\\n--- [5] Calculadora de IMC ---")
+try:
+    peso = float(input("Seu peso em kg (ex: 70): "))
+    altura = float(input("Sua altura em metros (ex: 1.75): "))
+    
+    # OPERAÇÃO MATEMÁTICA: Cálculo do IMC (Peso / Altura²)
+    imc = peso / (altura ** 2)
+    
+    # ESTRUTURA CONDICIONAL: Classificação simples do IMC
+    print(f"Seu IMC é: {imc:.2f}")
+    if imc < 24.9:
+        print("Resultado: Peso normal (ou abaixo).")
+    else:
+        print("Resultado: Sobrepeso (ou acima).")
+except ValueError:
+    print("Erro: Entrada inválida. Digite números.")
+except ZeroDivisionError:
+    print("Erro: A altura não pode ser zero.")`
+            },
+            {
+                id: 6,
+                title: "Recarga de Créditos",
+                description: "Adiciona créditos ao saldo e oferece bônus para recargas altas.",
+                code: `# PROJETO 6: RECARGA DE TELEFONE (Operações +, =)
+print("\\n--- [6] Recarga de Créditos ---")
+try:
+    saldo_atual = float(input("Seu saldo atual: R$ "))
+    valor_recarga = float(input("Valor da recarga: R$ "))
+    
+    # OPERAÇÃO MATEMÁTICA: Soma
+    novo_saldo = saldo_atual + valor_recarga
+    
+    # ESTRUTURA CONDICIONAL: Ação baseada no valor da recarga
+    if valor_recarga >= 20.0:
+        print("Recarga alta. Você recebeu 500MB de bônus!")
+    else:
+        print("Recarga padrão. Sem bônus.")
+        
+    print(f"Seu novo saldo é: R$ {novo_saldo:.2f}")
+except ValueError:
+    print("Erro: Entrada inválida. Digite valores monetários.")`
+            },
+            {
+                id: 7,
+                title: "Conversor de Temperatura",
+                description: "Converte Celsius para Fahrenheit e verifica se a água está fervendo.",
+                code: `# PROJETO 7: CONVERSOR DE TEMPERATURA (°C para °F) (Operações *, +)
+print("\\n--- [7] Celsius para Fahrenheit ---")
+try:
+    celsius = float(input("Digite a temperatura em Celsius: "))
+    
+    # OPERAÇÃO MATEMÁTICA: Fórmula (C * 9/5) + 32
+    fahrenheit = (celsius * 9 / 5) + 32
+    
+    # ESTRUTURA CONDICIONAL: Verifica se a água está em estado de ebulição (100°C)
+    print(f"Temperatura em Fahrenheit: {fahrenheit:.2f}°F")
+    if celsius >= 100:
+        print("AVISO: A água está fervendo!")
+    else:
+        print("A água está em estado líquido.")
+except ValueError:
+    print("Erro: Entrada inválida. Digite um número.")`
+            },
+            {
+                id: 8,
+                title: "Calculadora de Troco",
+                description: "Calcula o troco a ser devolvido ou o valor que falta para o pagamento.",
+                code: `# PROJETO 8: CÁLCULO DE TROCO (Operação -)
+print("\\n--- [8] Calculadora de Troco ---")
+try:
+    valor_produto = float(input("Valor total do produto: R$ "))
+    valor_pago = float(input("Valor pago pelo cliente: R$ "))
+    
+    # OPERAÇÃO MATEMÁTICA: Subtração
+    troco = valor_pago - valor_produto
+    
+    # ESTRUTURA CONDICIONAL: Verifica se o troco é necessário ou se faltou dinheiro
+    if troco > 0:
+        print(f"Troco a ser devolvido: R$ {troco:.2f}")
+    elif troco == 0:
+        print("Pagamento exato. Não há troco.")
+    else:
+        # Troco é negativo, significa que faltou dinheiro
+        print(f"FALTAM R$ {abs(troco):.2f} para completar o pagamento.")
+except ValueError:
+    print("Erro: Entrada inválida. Digite valores monetários.")`
+            },
+            {
+                id: 9,
+                title: "Multiplicação por Fator",
+                description: "Multiplica um número por um fator diferente dependendo do seu valor.",
+                code: `# PROJETO 9: MULTIPLICAÇÃO CONDICIONAL (Operação *)
+print("\\n--- [9] Multiplicação por Fator ---")
+try:
+    numero_base = float(input("Digite um número: "))
+    
+    # ESTRUTURA CONDICIONAL: Escolhe o fator de multiplicação
+    if numero_base > 10:
+        fator = 2 # OPERAÇÃO MATEMÁTICA
+        mensagem = " (maior que 10, fator 2)"
+    else:
+        fator = 5 # OPERAÇÃO MATEMÁTICA
+        mensagem = " (menor ou igual a 10, fator 5)"
+        
+    # OPERAÇÃO MATEMÁTICA: Multiplicação
+    resultado = numero_base * fator
+    
+    print(f"Resultado {mensagem}: {resultado:.2f}")
+except ValueError:
+    print("Erro: Entrada inválida. Digite um número.")`
+            },
+            {
+                id: 10,
+                title: "Custo por Pessoa",
+                description: "Divide o custo total de uma conta pelo número de pessoas.",
+                code: `# PROJETO 10: DISTRIBUIÇÃO DE CUSTO (Operação /)
+print("\\n--- [10] Custo por Pessoa ---")
+try:
+    custo_total = float(input("Qual o custo total da conta? R$ "))
+    num_pessoas = int(input("Quantas pessoas vão dividir a conta? "))
+    
+    # ESTRUTURA CONDICIONAL: Evita divisão por zero
+    if num_pessoas > 0:
+        # OPERAÇÃO MATEMÁTICA: Divisão
+        custo_por_pessoa = custo_total / num_pessoas
+        print(f"Cada pessoa deve pagar: R$ {custo_por_pessoa:.2f}")
+    else:
+        print("Erro: O número de pessoas deve ser maior que zero.")
+except ValueError:
+    print("Erro: Entrada inválida. Digite números válidos.")`
+            }
+        ];
+
+        // Função para renderizar os exemplos
+        function renderExamples() {
+            const examplesGrid = document.getElementById('examples-grid');
+            
+            examples.forEach(example => {
+                const exampleCard = document.createElement('div');
+                exampleCard.className = 'example-card';
+                exampleCard.innerHTML = `
+                    <div class="example-title">
+                        <span class="example-number">${example.id}</span>
+                        ${example.title}
+                    </div>
+                    <div class="example-description">${example.description}</div>
+                `;
+                
+                exampleCard.addEventListener('click', () => {
+                    // Remove a classe 'active' de todos os cards
+                    document.querySelectorAll('.example-card').forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    
+                    // Adiciona a classe 'active' ao card clicado
+                    exampleCard.classList.add('active');
+                    
+                    // Exibe o código do exemplo
+                    showExampleCode(example);
+                });
+                
+                examplesGrid.appendChild(exampleCard);
+            });
+        }
+
+        // Função para renderizar os projetos
+        function renderProjects() {
+            const projectsContainer = document.getElementById('projects-container');
+            
+            projects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'project-card';
+                projectCard.innerHTML = `
+                    <div class="project-title">
+                        <span class="project-number">${project.id}</span>
+                        ${project.title}
+                    </div>
+                    <p>${project.description}</p>
+                `;
+                
+                projectCard.addEventListener('click', () => {
+                    // Remove a classe 'active' de todos os cards
+                    document.querySelectorAll('.project-card').forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    
+                    // Adiciona a classe 'active' ao card clicado
+                    projectCard.classList.add('active');
+                    
+                    // Exibe o código do projeto
+                    showProjectCode(project);
+                });
+                
+                projectsContainer.appendChild(projectCard);
+            });
+        }
+
+        // Função para exibir o código de um exemplo
+        function showExampleCode(example) {
+            const container = document.getElementById('example-code-container');
+            const title = document.getElementById('example-title');
+            const codeElement = document.getElementById('example-code');
+            
+            title.textContent = `Exemplo ${example.id}: ${example.title}`;
+            codeElement.textContent = example.code;
+            
+            container.classList.remove('hidden');
+            
+            // Rola a página até o código
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Função para exibir o código de um projeto
+        function showProjectCode(project) {
+            const container = document.getElementById('project-code-container');
+            const title = document.getElementById('project-title');
+            const codeElement = document.getElementById('project-code');
+            
+            title.textContent = `Projeto ${project.id}: ${project.title}`;
+            codeElement.textContent = project.code;
+            
+            container.classList.remove('hidden');
+            
+            // Rola a página até o código
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Inicializa a página
+        document.addEventListener('DOMContentLoaded', () => {
+            renderExamples();
+            renderProjects();
+        });
+    </script>
+</body>
+</html>
